@@ -9,17 +9,24 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material3.Card
@@ -37,6 +44,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -114,7 +123,7 @@ fun Greeting(name: String) {
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = "Welcome to Dicoding!",
+                    text = "Welcome to Android!",
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontStyle = FontStyle.Italic
                     )
@@ -159,12 +168,92 @@ fun GreetingList(names: List<String>) {
     }
 }
 
+@Composable
+fun Contact() {
+    Row (
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        Box {
+            Image (
+                painter = painterResource(R.drawable.jetpack_compose),
+                contentDescription = "Avatar",
+                modifier = Modifier.size(60.dp).clip(CircleShape)
+            )
+            Icon (
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = "Online Status",
+                tint = Color.Green,
+                modifier = Modifier.align(Alignment.BottomEnd)
+            )
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        Column {
+            Text (
+                text = "Nelvari Himyar",
+                fontWeight = FontWeight.Bold
+            )
+            Text("online")
+        }
+    }
+}
+
+@Composable
+fun ContactCard(name: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = {})
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(R.drawable.jetpack_compose),
+            contentDescription = "Avatar",
+            modifier = Modifier
+                .padding(4.dp)
+                .border(2.dp, Color.Green, CircleShape)
+                .clip(CircleShape)
+                .size(60.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = name,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(text = "Online")
+            Icon(
+                imageVector = Icons.Filled.Check,
+                contentDescription = null,
+                modifier = Modifier.offset(x = 8.dp, y = 30.dp)
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreview() {
     HelloJetpackComposeTheme {
         Greeting("Jetpack Compose")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ContactPreview() {
+    HelloJetpackComposeTheme {
+        Contact()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ContactCardPreview() {
+    HelloJetpackComposeTheme {
+        ContactCard("Nelvari Himyar")
     }
 }
 
